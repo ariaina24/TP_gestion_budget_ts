@@ -1,96 +1,110 @@
+const readline = require('readline-sync');
+
 class Budget {
-    private expenses: number[];
-    private incomes: number[];
-  
-    constructor() {
-      this.expenses = [];
-      this.incomes = [];
-    }
-  
-    addExpense(expense: number) {
-      this.expenses.push(expense);
-    }
-  
-    addIncome(income: number) {
-      this.incomes.push(income);
-    }
-  
-    getExpenses() {
-      return this.expenses;
-    }
-  
-    getIncomes() {
-      return this.incomes;
-    }
-  
-    getExpensesTotal() {
-      let total = 0;
-      for (let expense of this.expenses) {
-        total += expense;
-      }
-      return total;
-    }
-  
-    getIncomesTotal() {
-      let total = 0;
-      for (let income of this.incomes) {
-        total += income;
-      }
-      return total;
-    }
-  
-    getExpensesAvg() {
-      return this.getExpensesTotal() / this.expenses.length;
-    }
-  
-    getIncomesAvg() {
-      return this.getIncomesTotal() / this.incomes.length;
-    }
-  
-    getExpensesMax(month: string) {
-      let maxExpense = 0;
-      for (let expense of this.expenses) {
-        if (expense > maxExpense) {
-          maxExpense = expense;
-        }
-      }
-      return maxExpense;
-    }
-  
-    getIncomesMax(month: string) {
-      let maxIncome = 0;
-      for (let income of this.incomes) {
-        if (income > maxIncome) {
-          maxIncome = income;
-        }
-      }
-      return maxIncome;
-    }
-  
-    getExpensesMin(month: string) {
-      let minExpense = Number.MAX_VALUE;
-      for (let expense of this.expenses) {
-        if (expense < minExpense) {
-          minExpense = expense;
-        }
-      }
-      return minExpense;
-    }
-  
-    getIncomesMin(month: string) {
-      let minIncome = Number.MAX_VALUE;
-      for (let income of this.incomes) {
-        if (income < minIncome) {
-          minIncome = income;
-        }
-      }
-      return minIncome;
+  private depenses: number[];
+  private revenus: number[];
+
+  constructor() {
+    this.depenses = [];
+    this.revenus = [];
+  }
+
+  // Ajouter une dépense
+  ajouterDepense() {
+    const montant = Number(readline.question("Entrez le montant de la depense:"));
+    if (!isNaN(montant)) {
+      this.depenses.push(montant);
     }
   }
 
+  // Ajouter un revenu
+  ajouterRevenu() {
+    const montant = Number(readline.question("Entrez le montant du revenu:"));
+    if (!isNaN(montant)) {
+      this.revenus.push(montant);
+    }
+  }
 
-  /* Ce code crée une classe Budget qui contient des tableaux pour les dépenses et les revenus, ainsi que des méthodes pour ajouter des 
-  dépenses et des revenus,récupérer les dépenses et les revenus, calculer les totaux,les moyennes, les valeurs 
-  maximales et minimales pour les dépenses et les revenus. Il est important de noter 
-  que cette exemple n'inclus pas la fonctionalité pour afficher les informations sous forme de graphiques ou tableau,
-    ni les fonctionnalités pour la récupération des sommes des dépenses et revenus */
+  // Afficher les dépenses
+  afficherDepenses() {
+    console.log("Dépenses:");
+    console.table(this.depenses);
+  }
+
+  // Afficher les revenus
+  afficherRevenus() {
+    console.log("Revenus:");
+    console.table(this.revenus);
+  }
+
+  // Total des dépenses
+  totalDepenses() {
+    let total = 0;
+    for (const depense of this.depenses) {
+      total += depense;
+    }
+    return total;
+  }
+
+  // Total des revenus
+  totalRevenus() {
+    let total = 0;
+    for (const revenu of this.revenus) {
+      total += revenu;
+    }
+    return total;
+  }
+
+  // Moyenne des dépenses
+  moyenneDepenses() {
+    return this.totalDepenses() / this.depenses.length;
+  }
+
+  // Moyenne des revenus
+  moyenneRevenus() {
+    return this.totalRevenus() / this.revenus.length;
+  }
+
+  // Dépense maximale
+  depenseMaximale() {
+    return Math.max(...this.depenses);
+  }
+
+  // Dépense minimale
+  depenseMinimale() {
+    return Math.min(...this.depenses);
+  }
+
+  // Revenu maximal
+  revenuMaximal() {
+    return Math.max(...this.revenus);
+  }
+
+  // Revenu minimal
+  revenuMinimal() {
+    return Math.min(...this.revenus);
+  }
+}
+
+const budget = new Budget();
+budget.ajouterDepense();
+budget.ajouterDepense();
+budget.ajouterDepense();
+budget.ajouterDepense();
+
+budget.ajouterRevenu();
+budget.ajouterRevenu();
+budget.ajouterRevenu();
+budget.ajouterRevenu();
+
+budget.afficherDepenses();
+console.log("Total des dépenses:", budget.totalDepenses());
+console.log("Moyenne des dépenses:", budget.moyenneDepenses());
+console.log("Dépense maximale:", budget.depenseMaximale());
+console.log("Dépense minimale:", budget.depenseMinimale());
+budget.afficherRevenus();
+
+console.log("Total des revenus:", budget.totalRevenus());
+console.log("Moyenne des revenus:", budget.moyenneRevenus());
+console.log("Revenu maximal:", budget.revenuMaximal());
+console.log("Revenu minimal:", budget.revenuMinimal());
